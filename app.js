@@ -1,24 +1,30 @@
-// Crea una tarjeta a partir de un objeto de PROYECTOS.
+// Crea una tarjeta que se da la vuelta: cara frontal (título, imagen, tecnologías)
+// y cara trasera (descripción y botones).
 function crearTarjeta(p) {
   const tarjeta = document.createElement("article");
   tarjeta.className = "tarjeta";
+  tarjeta.tabIndex = 0;
+
+  const interior = document.createElement("div");
+  interior.className = "interior";
+
+  // ----- Cara frontal -----
+  const frontal = document.createElement("div");
+  frontal.className = "cara frontal";
 
   if (p.imagen) {
     const img = document.createElement("img");
     img.src = p.imagen;
     img.alt = `Captura de ${p.titulo}`;
     img.loading = "lazy";
-    tarjeta.appendChild(img);
+    frontal.appendChild(img);
   }
 
-  const cuerpo = document.createElement("div");
-  cuerpo.className = "cuerpo";
+  const bloque = document.createElement("div");
+  bloque.className = "bloque";
 
   const h2 = document.createElement("h2");
   h2.textContent = p.titulo;
-
-  const desc = document.createElement("p");
-  desc.textContent = p.descripcion;
 
   const tags = document.createElement("ul");
   tags.className = "tags";
@@ -28,6 +34,16 @@ function crearTarjeta(p) {
     tags.appendChild(li);
   });
 
+  bloque.append(h2, tags);
+  frontal.appendChild(bloque);
+
+  // ----- Cara trasera -----
+  const trasera = document.createElement("div");
+  trasera.className = "cara trasera";
+
+  const desc = document.createElement("p");
+  desc.textContent = p.descripcion;
+
   const botones = document.createElement("div");
   botones.className = "botones";
   botones.append(
@@ -35,8 +51,18 @@ function crearTarjeta(p) {
     crearBoton("Ver código", p.codigo, "secundario")
   );
 
-  cuerpo.append(h2, desc, tags, botones);
-  tarjeta.appendChild(cuerpo);
+  trasera.append(desc, botones);
+
+  interior.append(frontal, trasera);
+  tarjeta.appendChild(interior);
+
+  // En pantallas táctiles no existe "hover": un toque da la vuelta a la tarjeta.
+  tarjeta.addEventListener("click", (e) => {
+    if (!window.matchMedia("(hover: none)").matches) return;
+    if (e.target.closest("a")) return; // no interferir con los botones
+    tarjeta.classList.toggle("volteada");
+  });
+
   return tarjeta;
 }
 
