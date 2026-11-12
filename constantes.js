@@ -22,12 +22,12 @@ const PROYECTOS = [
     codigo: "https://github.com/jfvillarb01/Reloj-del-Juicio-Final",
   },
   {
-    titulo: "Proyecto de ejemplo",
+    titulo: "Armeria",
     descripcion:
-      "Sustituye este texto por una descripción breve de lo que hace tu proyecto y qué problema resuelve.",
-    tecnologias: ["HTML", "CSS", "JavaScript"],
+      "",
+    tecnologias: [""],
     imagen: "",
-    demo: "https://example.com",
-    codigo: "https://github.com/tu-usuario/proyecto-ejemplo",
+    demo: "https://jfvillarb01.github.io/Armeria/",
+    codigo: "https://github.com/jfvillarb01/Armeria",
   },
 ];
